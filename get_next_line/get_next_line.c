@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/18 16:28:52 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/18 17:09:26 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ char	*get_next_line(int fd)
 		write(1, "Line Error\n", 12);
 		return (NULL);
 	}
-	line = parse(fd)
-	
-	
+	line = parse(fd);
 }
 
 char	*fill_line_beffer(int fd, char *left_c, char *buffer)
