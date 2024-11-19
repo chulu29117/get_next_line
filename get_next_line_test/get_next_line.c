@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/19 14:53:14 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/19 15:51:33 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	test_1_all(void)
 	int 	fd;
 	char	*line;
 	
-	fd = open("all.txt", O_RDONLY);
+	fd = open("./text_files/all.txt", O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Error opening file");
@@ -114,7 +114,7 @@ void	test_2_empty(void)
 	int 	fd;
 	char	*line;
 	
-	fd = open("empty.txt", O_RDONLY);
+	fd = open("./text_files/empty.txt", O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Error opening file");
@@ -135,7 +135,7 @@ void	test_3_single_line(void)
 	int 	fd;
 	char	*line;
 	
-	fd = open("single_line.txt", O_RDONLY);
+	fd = open("./text_files/single_line.txt", O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Error opening file");
@@ -156,7 +156,7 @@ void	test_4_multiple_lines(void)
 	int 	fd;
 	char	*line;
 	
-	fd = open("multi_lines.txt", O_RDONLY);
+	fd = open("./text_files/multi_lines.txt", O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Error opening file");
@@ -177,7 +177,7 @@ void	test_5_mixed_lines(void)
 	int 	fd;
 	char	*line;
 	
-	fd = open("mixed_lines.txt", O_RDONLY);
+	fd = open("./text_files/mixed_lines.txt", O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Error opening file");
@@ -198,7 +198,7 @@ void	test_6_short_lines(void)
 	int 	fd;
 	char	*line;
 	
-	fd = open("short_lines.txt", O_RDONLY);
+	fd = open("./text_files/short_lines.txt", O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Error opening file");
@@ -219,7 +219,7 @@ void	test_7_only_new_lines(void)
 	int 	fd;
 	char	*line;
 	
-	fd = open("only_newlines.txt", O_RDONLY);
+	fd = open("./text_files/only_newlines.txt", O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Error opening file");
