@@ -1,0 +1,17 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    test.txt                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: clu <clu@student.hive.fi>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/11/19 14:20:37 by clu               #+#    #+#              #
+#    Updated: 2024/11/19 14:20:39 by clu              ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Hello, World!
+This is a test file.
+It contains multiple lines.
+Some lines are short.
+Some lines are very long and might span multiple reads depending on the buffer size.
