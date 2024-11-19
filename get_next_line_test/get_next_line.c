@@ -6,16 +6,21 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/19 10:32:27 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/19 10:54:40 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 32
+#endif
+
 char	*get_next_line(int fd)
 {
 	static char *word;
 	char		*line;
+	char		*temp;
 
 	// Check file descriptor, buffer size, and line pointer.
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -24,7 +29,9 @@ char	*get_next_line(int fd)
 	if (word == NULL)
 		return (NULL);
 	line = set_line(word);
-	word = ft_strdup(word + ft_strlen(line) + 1);
+	temp = ft_strdup(word + ft_strlen(line));
+	free(word);
+	word = temp;
 	if (word[0] == '\0')
 	{
 		free(word);

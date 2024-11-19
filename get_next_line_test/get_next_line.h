@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:44:16 by clu               #+#    #+#             */
-/*   Updated: 2024/11/19 10:28:43 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/19 10:53:31 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include <fcntl.h>		// open()
 # include <unistd.h>	// read()
 # include <stdlib.h>	// malloc(), free()
-
-# define BUFFER_SIZE 1024
 
 char	*get_next_line(int fd);
 char	*fill_line_buffer(int fd, char *prev);
