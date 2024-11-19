@@ -6,15 +6,11 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/19 11:41:34 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/19 13:01:00 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 32
-#endif
 
 char	*get_next_line(int fd)
 {
@@ -25,17 +21,14 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	word = fill_line_buffer(fd, word);
-	if (word == NULL)
-		return (NULL);
+	if (word == NULL || word[0] == '\0')
+		return (free(word), word = NULL, NULL);
 	line = set_line(word);
 	temp = ft_strdup(word + ft_strlen(line));
 	free(word);
 	word = temp;
-	if (word && word[0] == '\0')
-	{
-		free(word);
-		word = NULL;
-	}
+	if (word == NULL)
+		return (free(word), NULL);
 	return (line);
 }
 
@@ -45,7 +38,7 @@ char	*fill_line_buffer(int fd, char *prev)
 	char	*temp;
 	ssize_t	bytes_read;
 
-	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buffer == NULL)
 		return (NULL);
 	if (prev == NULL)
@@ -55,10 +48,7 @@ char	*fill_line_buffer(int fd, char *prev)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-		{
-			free(buffer && prev);
-			return (NULL);
-		}
+			return (free(buffer), free(prev), NULL);
 		buffer[bytes_read] = '\0';
 		temp = ft_strjoin(prev, buffer);
 		free(prev);
@@ -77,7 +67,7 @@ char	*set_line(char *line_buffer)
 	newline_pos = ft_strchr(line_buffer, '\n');
 	if (newline_pos)
 	{
-		len = newline_pos - line_buffer;
+		len = newline_pos - line_buffer + 1;
 		line = ft_substr(line_buffer, 0, len);
 	}
 	else

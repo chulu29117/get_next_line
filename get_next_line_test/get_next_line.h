@@ -6,12 +6,16 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:44:16 by clu               #+#    #+#             */
-/*   Updated: 2024/11/19 10:53:31 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/19 12:29:42 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 32
+# endif
 
 # include <fcntl.h>		// open()
 # include <unistd.h>	// read()

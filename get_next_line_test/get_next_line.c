@@ -6,37 +6,35 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/19 11:42:01 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/19 13:02:08 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 32
-#endif
-
 char	*get_next_line(int fd)
 {
-	static char *word;
-	char		*line;
-	char		*temp;
+	static char	*word;	// Static variable to store the previous buffer.
+	char		*line;	// Variable to store the line extracted from the line buffer.
+	char		*temp;	// Temporary variable to store the updated line buffer.
 
-	// Check file descriptor, buffer size, and line pointer.
+	// Check if the file descriptor is valid and the buffer size is greater than zero.
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	// Fill the line buffer with data from the file descriptor.
 	word = fill_line_buffer(fd, word);
-	if (word == NULL)
-		return (NULL);
+	// Check if the line buffer is empty.
+	if (word == NULL || word[0] == '\0')
+		return (free(word), word = NULL, NULL);
+	// Extract the line from the line buffer.
 	line = set_line(word);
+	// Update the line buffer with the remaining data.
 	temp = ft_strdup(word + ft_strlen(line));
 	free(word);
 	word = temp;
-	if (word && word[0] == '\0')
-	{
-		free(word);
-		word = NULL;
-	}
+	// Check if the line buffer is empty.
+	if (word == NULL)
+		return (free(word), NULL);
 	return (line);
 }
 
@@ -47,7 +45,7 @@ char	*fill_line_buffer(int fd, char *prev)
 	ssize_t	bytes_read;
 
 	// Allocate memory for a buffer to read data from the file descriptor.
-	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buffer == NULL)
 		return (NULL);
 	if (prev == NULL)			// Check if the previous buffer is empty.
@@ -58,10 +56,7 @@ char	*fill_line_buffer(int fd, char *prev)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);	// Read data from the file descriptor.
 		if (bytes_read == -1)	// Check read error
-		{
-			free(buffer && prev);	// Free the buffer and previous buffer to avoid leaks.
-			return (NULL);
-		}
+			return (free(buffer), free(prev), NULL);	// Free the buffer and previous buffer to avoid leaks.
 		buffer[bytes_read] = '\0';
 		temp = ft_strjoin(prev, buffer);	// Join the previous buffer with the current buffer.
 		free(prev);
@@ -81,7 +76,7 @@ char	*set_line(char *line_buffer)
 	newline_pos = ft_strchr(line_buffer, '\n');	// Find the newline character in the line buffer.
 	if (newline_pos)
 	{
-		len = newline_pos - line_buffer;		// Calculate the length of the line.
+		len = newline_pos - line_buffer + 1;		// Calculate the length of the line.
 		line = ft_substr(line_buffer, 0, len);	// Extract the line from the line buffer.
 	}
 	else
