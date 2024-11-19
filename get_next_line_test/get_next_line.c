@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/19 10:54:40 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/19 11:42:01 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*get_next_line(int fd)
 	temp = ft_strdup(word + ft_strlen(line));
 	free(word);
 	word = temp;
-	if (word[0] == '\0')
+	if (word && word[0] == '\0')
 	{
 		free(word);
 		word = NULL;
@@ -50,6 +50,8 @@ char	*fill_line_buffer(int fd, char *prev)
 	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (buffer == NULL)
 		return (NULL);
+	if (prev == NULL)			// Check if the previous buffer is empty.
+		prev = ft_strdup("");	// Initialize the buffer with an empty string.
 	bytes_read = 1;
 	// Read data from the file descriptor until a newline character is found.
 	while (!ft_strchr(prev, '\n') && bytes_read != 0)
@@ -57,7 +59,7 @@ char	*fill_line_buffer(int fd, char *prev)
 		bytes_read = read(fd, buffer, BUFFER_SIZE);	// Read data from the file descriptor.
 		if (bytes_read == -1)	// Check read error
 		{
-			free(buffer);
+			free(buffer && prev);	// Free the buffer and previous buffer to avoid leaks.
 			return (NULL);
 		}
 		buffer[bytes_read] = '\0';
@@ -71,24 +73,20 @@ char	*fill_line_buffer(int fd, char *prev)
 
 char	*set_line(char *line_buffer)
 {
+	char	*newline_pos;
 	char	*line;
-	char	*temp;
-	char	*newline;
+	size_t	len;
 
 	// Find the newline character in the line buffer.
-	newline = ft_strchr(line_buffer, '\n');
-	if (newline == NULL)
+	newline_pos = ft_strchr(line_buffer, '\n');	// Find the newline character in the line buffer.
+	if (newline_pos)
 	{
-		line = ft_strdup(line_buffer);	// Copy the line buffer to the line.
-		free(line_buffer);				// Free the line buffer.
-		return (line);					// Return the line.
+		len = newline_pos - line_buffer;		// Calculate the length of the line.
+		line = ft_substr(line_buffer, 0, len);	// Extract the line from the line buffer.
 	}
-	*newline = '\0';	// Replace the newline character with a null terminator.
-	line = ft_strdup(line_buffer);	// Copy the line buffer to the line.
-	temp = ft_strdup(newline + 1);	// Copy the rest of the line buffer to a temp buffer.
-	free(line_buffer);				// Free the line buffer.
-	line_buffer = temp;				// Update the line buffer.
-	return (line);					// Return the line.
+	else
+		line = ft_strdup(line_buffer);	// Copy the line buffer to the line.
+	return (line);				// Return the line.
 }
 
 // Test the get_next_line function //
