@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/19 13:01:00 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/19 16:28:16 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ char	*get_next_line(int fd)
 		return (NULL);
 	word = fill_line_buffer(fd, word);
 	if (word == NULL || word[0] == '\0')
-		return (free(word), word = NULL, NULL);
+	{
+		free(word);
+		word = NULL;
+		return (NULL);
+	}
 	line = set_line(word);
 	temp = ft_strdup(word + ft_strlen(line));
 	free(word);
