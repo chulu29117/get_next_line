@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/19 16:28:16 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/20 11:43:27 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,67 +14,65 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*word;
+	static char	*buffer;
 	char		*line;
 	char		*temp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	word = fill_line_buffer(fd, word);
-	if (word == NULL || word[0] == '\0')
+	buffer = fill_line_buffer(fd, buffer);
+	if (buffer == NULL || buffer[0] == '\0')
 	{
-		free(word);
-		word = NULL;
+		free(buffer);
+		buffer = NULL;
 		return (NULL);
 	}
-	line = set_line(word);
-	temp = ft_strdup(word + ft_strlen(line));
-	free(word);
-	word = temp;
-	if (word == NULL)
-		return (free(word), NULL);
+	line = set_line(buffer);
+	temp = ft_strdup(buffer + ft_strlen(line));
+	free(buffer);
+	buffer = temp;
 	return (line);
 }
 
-char	*fill_line_buffer(int fd, char *prev)
+char	*fill_line_buffer(int fd, char *buffer)
 {
-	char	*buffer;
+	char	*temp_buffer;
 	char	*temp;
 	ssize_t	bytes_read;
 
-	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (buffer == NULL)
+	temp_buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (temp_buffer == NULL)
 		return (NULL);
-	if (prev == NULL)
-		prev = ft_strdup("");
+	if (buffer == NULL)
+		buffer = ft_strdup("");
 	bytes_read = 1;
-	while (!ft_strchr(prev, '\n') && bytes_read != 0)
+	while (!ft_strchr(buffer, '\n') && bytes_read != 0)
 	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-			return (free(buffer), free(prev), NULL);
-		buffer[bytes_read] = '\0';
-		temp = ft_strjoin(prev, buffer);
-		free(prev);
-		prev = temp;
+			return (free(temp_buffer), free(buffer), NULL);
+		temp_buffer[bytes_read] = '\0';
+		temp = ft_strjoin(buffer, temp_buffer);
+		free(buffer);
+		buffer = temp;
 	}
-	free(buffer);
-	return (prev);
+	free(temp_buffer);
+	return (buffer);
 }
 
-char	*set_line(char *line_buffer)
+char	*set_line(char *line_check)
 {
 	char	*newline_pos;
 	char	*line;
 	size_t	len;
 
-	newline_pos = ft_strchr(line_buffer, '\n');
+	newline_pos = ft_strchr(line_check, '\n');
 	if (newline_pos)
 	{
-		len = newline_pos - line_buffer + 1;
-		line = ft_substr(line_buffer, 0, len);
+		len = newline_pos - line_check + 1;
+		line = ft_substr(line_check, 0, len);
 	}
 	else
-		line = ft_strdup(line_buffer);
+		line = ft_strdup(line_check);
 	return (line);
 }

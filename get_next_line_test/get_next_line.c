@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/19 16:29:23 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/20 11:53:21 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*word;	// Static variable to store the previous buffer.
+	static char	*word;	// Static variable to store the previous buffer between function calls.
 	char		*line;	// Variable to store the line extracted from the line buffer.
 	char		*temp;	// Temporary variable to store the updated line buffer.
 
@@ -36,9 +36,6 @@ char	*get_next_line(int fd)
 	temp = ft_strdup(word + ft_strlen(line));
 	free(word);
 	word = temp;
-	// Check if the line buffer is empty.
-	if (word == NULL)
-		return (free(word), NULL);
 	return (line);
 }
 
@@ -58,7 +55,7 @@ char	*fill_line_buffer(int fd, char *prev)
 	// Read data from the file descriptor until a newline character is found.
 	while (!ft_strchr(prev, '\n') && bytes_read != 0)
 	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);	// Read data from the file descriptor.
+		bytes_read = read(fd, buffer, BUFFER_SIZE);	// Read file and output # of bytes read.
 		if (bytes_read == -1)	// Check read error
 			return (free(buffer), free(prev), NULL);	// Free the buffer and previous buffer to avoid leaks.
 		buffer[bytes_read] = '\0';
