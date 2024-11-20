@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/20 11:43:27 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/20 12:04:37 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,19 @@ char	*fill_line_buffer(int fd, char *buffer)
 	return (buffer);
 }
 
-char	*set_line(char *line_check)
+char	*set_line(char *buffer)
 {
 	char	*newline_pos;
 	char	*line;
 	size_t	len;
 
-	newline_pos = ft_strchr(line_check, '\n');
+	newline_pos = ft_strchr(buffer, '\n');
 	if (newline_pos)
 	{
-		len = newline_pos - line_check + 1;
-		line = ft_substr(line_check, 0, len);
+		len = newline_pos - buffer + 1;
+		line = ft_substr(buffer, 0, len);
 	}
 	else
-		line = ft_strdup(line_check);
+		line = ft_strdup(buffer);
 	return (line);
 }

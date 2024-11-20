@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/20 11:53:21 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/20 12:12:03 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,21 +67,21 @@ char	*fill_line_buffer(int fd, char *prev)
 	return (prev);	// Return the updated buffer.
 }
 
-char	*set_line(char *line_buffer)
+char	*set_line(char *buffer)
 {
 	char	*newline_pos;
 	char	*line;
 	size_t	len;
 
 	// Find the newline character in the line buffer.
-	newline_pos = ft_strchr(line_buffer, '\n');	// Find the newline character in the line buffer.
+	newline_pos = ft_strchr(buffer, '\n');	// Newline Position: Points to the newline character
 	if (newline_pos)
 	{
-		len = newline_pos - line_buffer + 1;		// Calculate the length of the line.
-		line = ft_substr(line_buffer, 0, len);	// Extract the line from the line buffer.
+		len = newline_pos - buffer + 1;	// Calculate the length of the line.
+		line = ft_substr(buffer, 0, len);	// Extract the line from the line buffer.
 	}
 	else
-		line = ft_strdup(line_buffer);	// Copy the line buffer to the line.
+		line = ft_strdup(buffer);	// Copy the line buffer to the line.
 	return (line);				// Return the line.
 }
 
@@ -89,10 +89,157 @@ char	*set_line(char *line_buffer)
 #include <stdio.h>
 
 // Read all lines from a file //
-void	test_1_all(void)
+// void	test_1_all(void)
+// {
+// 	int 	fd;
+// 	char	*line;
+	
+// 	fd = open("./text_files/all.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		perror("Error opening file");
+// 		return;
+// 	}
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	printf("\n--------------------------------------------------------------------\n\n");
+// 	close(fd);
+// }
+
+// // Read from an empty file //
+// void	test_2_empty(void)
+// {
+// 	int 	fd;
+// 	char	*line;
+	
+// 	fd = open("./text_files/empty.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		perror("Error opening file");
+// 		return;
+// 	}
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	printf("\n--------------------------------------------------------------------\n\n");
+// 	close(fd);
+// }
+
+// // Read from a file with one line //
+// void	test_3_single_line(void)
+// {
+// 	int 	fd;
+// 	char	*line;
+	
+// 	fd = open("./text_files/single_line.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		perror("Error opening file");
+// 		return;
+// 	}
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	printf("\n--------------------------------------------------------------------\n\n");
+// 	close(fd);
+// }
+
+// // Read from a file with multiple lines //
+// void	test_4_multiple_lines(void)
+// {
+// 	int 	fd;
+// 	char	*line;
+	
+// 	fd = open("./text_files/multi_lines.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		perror("Error opening file");
+// 		return;
+// 	}
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	printf("\n--------------------------------------------------------------------\n\n");
+// 	close(fd);
+// }
+
+// // Read from a file with mixed lines //
+// void	test_5_mixed_lines(void)
+// {
+// 	int 	fd;
+// 	char	*line;
+	
+// 	fd = open("./text_files/mixed_lines.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		perror("Error opening file");
+// 		return;
+// 	}
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	printf("\n--------------------------------------------------------------------\n\n");
+// 	close(fd);
+// }
+
+// // Read from a file with short lines //
+// void	test_6_short_lines(void)
+// {
+// 	int 	fd;
+// 	char	*line;
+	
+// 	fd = open("./text_files/short_lines.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		perror("Error opening file");
+// 		return;
+// 	}
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	printf("\n--------------------------------------------------------------------\n\n");
+// 	close(fd);
+// }
+
+// // Read from only new lines //
+// void	test_7_only_new_lines(void)
+// {
+// 	int 	fd;
+// 	char	*line;
+	
+// 	fd = open("./text_files/only_newlines.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		perror("Error opening file");
+// 		return;
+// 	}
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	printf("\n--------------------------------------------------------------------\n\n");
+// 	close(fd);
+// }
+
+void	test_1_all(int loops)
 {
 	int 	fd;
 	char	*line;
+	int		i = 0;
 	
 	fd = open("./text_files/all.txt", O_RDONLY);
 	if (fd == -1)
@@ -100,20 +247,21 @@ void	test_1_all(void)
 		perror("Error opening file");
 		return;
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	while (i < loops && (line = get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
 		free(line);
+		i++;
 	}
 	printf("\n--------------------------------------------------------------------\n\n");
 	close(fd);
 }
 
-// Read from an empty file //
-void	test_2_empty(void)
+void	test_2_empty(int loops)
 {
 	int 	fd;
 	char	*line;
+	int		i = 0;
 	
 	fd = open("./text_files/empty.txt", O_RDONLY);
 	if (fd == -1)
@@ -121,20 +269,21 @@ void	test_2_empty(void)
 		perror("Error opening file");
 		return;
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	while (i < loops && (line = get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
 		free(line);
+		i++;
 	}
 	printf("\n--------------------------------------------------------------------\n\n");
 	close(fd);
 }
 
-// Read from a file with one line //
-void	test_3_single_line(void)
+void	test_3_single_line(int loops)
 {
 	int 	fd;
 	char	*line;
+	int		i = 0;
 	
 	fd = open("./text_files/single_line.txt", O_RDONLY);
 	if (fd == -1)
@@ -142,20 +291,21 @@ void	test_3_single_line(void)
 		perror("Error opening file");
 		return;
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	while (i < loops && (line = get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
 		free(line);
+		i++;
 	}
 	printf("\n--------------------------------------------------------------------\n\n");
 	close(fd);
 }
 
-// Read from a file with multiple lines //
-void	test_4_multiple_lines(void)
+void	test_4_multiple_lines(int loops)
 {
 	int 	fd;
 	char	*line;
+	int		i = 0;
 	
 	fd = open("./text_files/multi_lines.txt", O_RDONLY);
 	if (fd == -1)
@@ -163,20 +313,21 @@ void	test_4_multiple_lines(void)
 		perror("Error opening file");
 		return;
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	while (i < loops && (line = get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
 		free(line);
+		i++;
 	}
 	printf("\n--------------------------------------------------------------------\n\n");
 	close(fd);
 }
 
-// Read from a file with mixed lines //
-void	test_5_mixed_lines(void)
+void	test_5_mixed_lines(int loops)
 {
 	int 	fd;
 	char	*line;
+	int		i = 0;
 	
 	fd = open("./text_files/mixed_lines.txt", O_RDONLY);
 	if (fd == -1)
@@ -184,20 +335,21 @@ void	test_5_mixed_lines(void)
 		perror("Error opening file");
 		return;
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	while (i < loops && (line = get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
 		free(line);
+		i++;
 	}
 	printf("\n--------------------------------------------------------------------\n\n");
 	close(fd);
 }
 
-// Read from a file with short lines //
-void	test_6_short_lines(void)
+void	test_6_short_lines(int loops)
 {
 	int 	fd;
 	char	*line;
+	int		i = 0;
 	
 	fd = open("./text_files/short_lines.txt", O_RDONLY);
 	if (fd == -1)
@@ -205,20 +357,21 @@ void	test_6_short_lines(void)
 		perror("Error opening file");
 		return;
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	while (i < loops && (line = get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
 		free(line);
+		i++;
 	}
 	printf("\n--------------------------------------------------------------------\n\n");
 	close(fd);
 }
 
-// Read from only new lines //
-void	test_7_only_new_lines(void)
+void	test_7_only_new_lines(int loops)
 {
 	int 	fd;
 	char	*line;
+	int		i = 0;
 	
 	fd = open("./text_files/only_newlines.txt", O_RDONLY);
 	if (fd == -1)
@@ -226,10 +379,11 @@ void	test_7_only_new_lines(void)
 		perror("Error opening file");
 		return;
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	while (i < loops && (line = get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
 		free(line);
+		i++;
 	}
 	printf("\n--------------------------------------------------------------------\n\n");
 	close(fd);
@@ -237,12 +391,12 @@ void	test_7_only_new_lines(void)
 
 int	main(void)
 {
-	test_1_all();
-	test_2_empty();
-	test_3_single_line();
-	test_4_multiple_lines();
-	test_5_mixed_lines();
-	test_6_short_lines();
-	test_7_only_new_lines();
+	test_1_all(5);
+	// test_2_empty(10);
+	// test_3_single_line(10);
+	// test_4_multiple_lines(10);
+	// test_5_mixed_lines(10);
+	// test_6_short_lines(10);
+	// test_7_only_new_lines(10);
 	return (0);
 }
