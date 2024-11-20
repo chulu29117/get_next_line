@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/20 14:04:52 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/20 14:10:53 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-char	*fill_line_buffer(int fd, char *line_buffer)
+char	*fill_line_buffer(int fd, char *prev_buffer)
 {
 	char	*temp_buffer;
 	char	*temp;
@@ -43,31 +43,31 @@ char	*fill_line_buffer(int fd, char *line_buffer)
 	temp_buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (temp_buffer == NULL)
 		return (NULL);
-	if (line_buffer == NULL)
-		line_buffer = ft_strdup("");
+	if (prev_buffer == NULL)
+		prev_buffer = ft_strdup("");
 	bytes_read = 1;
-	while (!ft_strchr(line_buffer, '\n') && bytes_read != 0)
+	while (!ft_strchr(prev_buffer, '\n') && bytes_read != 0)
 	{
 		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-			return (free(temp_buffer), free(line_buffer), NULL);
+			return (free(temp_buffer), free(prev_buffer), NULL);
 		temp_buffer[bytes_read] = '\0';
-		temp = ft_strjoin(line_buffer, temp_buffer);
-		free(line_buffer);
-		line_buffer = temp;
+		temp = ft_strjoin(prev_buffer, temp_buffer);
+		free(prev_buffer);
+		prev_buffer = temp;
 	}
 	free(temp_buffer);
-	return (line_buffer);
+	return (prev_buffer);
 }
 
-char	*set_line(char *line_buffer)
+char	*set_line(char *prev_buffer)
 {
 	int	i;
 
 	i = 0;
-	while (line_buffer[i] && line_buffer[i] != '\n')
+	while (prev_buffer[i] && prev_buffer[i] != '\n')
 		i++;
-	if (line_buffer[i] == '\n')
+	if (prev_buffer[i] == '\n')
 		i++;
-	return (ft_substr(line_buffer, 0, i));
+	return (ft_substr(prev_buffer, 0, i));
 }
