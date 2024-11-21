@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/21 12:35:28 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/21 16:35:57 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,38 +106,45 @@ void	test_get_next_line(const char *file_name, int loops)
 	close(fd);
 }
 
-void	test_1_all(int loops)
+void	test_1_story(int loops)
 {
-	test_get_next_line("./text_files/all.txt", loops);
+	printf("File 1: This file contains a short story\n\n");
+	test_get_next_line("./text_files/story.txt", loops);
 }
 
 void	test_2_empty(int loops)
 {
+	printf("File 2: This file is empty\n\n");
 	test_get_next_line("./text_files/empty.txt", loops);
 }
 
 void	test_3_single_line(int loops)
 {
+	printf("File 3: This file contains a single line\n\n");
 	test_get_next_line("./text_files/single_line.txt", loops);
 }
 
 void	test_4_multiple_lines(int loops)
 {
+	printf("File 4: This file contains multiple lines\n\n");
 	test_get_next_line("./text_files/multi_lines.txt", loops);
 }
 
 void	test_5_mixed_lines(int loops)
 {
+	printf("File 5: This file contains mixed lines\n\n");
 	test_get_next_line("./text_files/mixed_lines.txt", loops);
 }
 
 void	test_6_short_lines(int loops)
 {
+	printf("File 6: This file contains short lines\n\n");
 	test_get_next_line("./text_files/short_lines.txt", loops);
 }
 
 void	test_7_only_new_lines(int loops)
 {
+	printf("File 7: This file contains only new lines\n\n");
 	test_get_next_line("./text_files/only_newlines.txt", loops);
 }
 
@@ -154,7 +161,7 @@ int main(int argc, char **argv)
 			fprintf(stderr, "Invalid number of loops: %s\n", argv[1]);
 			return 1;
 		}
-		test_1_all(loops);
+		test_1_story(loops);
 		// test_2_empty(loops);
 		// test_3_single_line(loops);
 		// test_4_multiple_lines(loops);
