@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/20 14:10:53 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/21 17:31:36 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line_buffer = fill_line_buffer(fd, line_buffer);
 	if (line_buffer == NULL || line_buffer[0] == '\0')
-	{
-		free(line_buffer);
-		line_buffer = NULL;
-		return (NULL);
-	}
+		return (free(line_buffer), line_buffer = NULL, NULL);
 	line = set_line(line_buffer);
 	temp = ft_strdup(line_buffer + ft_strlen(line));
 	free(line_buffer);
@@ -64,7 +60,11 @@ char	*set_line(char *prev_buffer)
 {
 	int	i;
 
+	if (prev_buffer == NULL)
+		return (NULL);
 	i = 0;
+	if (prev_buffer == NULL)
+		return (NULL);
 	while (prev_buffer[i] && prev_buffer[i] != '\n')
 		i++;
 	if (prev_buffer[i] == '\n')

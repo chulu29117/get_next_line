@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/21 16:35:57 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/21 17:28:59 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,7 @@ char	*get_next_line(int fd)
 	line_buffer = fill_line_buffer(fd, line_buffer);
 	// Check if the line buffer is empty.
 	if (line_buffer == NULL || line_buffer[0] == '\0')
-	{
-		free(line_buffer);
-		line_buffer = NULL;
-		return (NULL);
-	}
+		return (free(line_buffer), line_buffer = NULL, NULL);
 	// Extract the line from the line buffer.
 	line = set_line(line_buffer);
 	// Update the line buffer with the remaining data.
@@ -72,6 +68,8 @@ char	*set_line(char *prev_buffer)
 {
 	int	i;
 
+	if (prev_buffer == NULL)
+		return (NULL);
 	i = 0;
 	while (prev_buffer[i] && prev_buffer[i] != '\n')
 		i++;
