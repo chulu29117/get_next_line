@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/21 17:28:59 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/21 18:04:37 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*fill_line_buffer(int fd, char *prev_buffer)
 		temp = ft_strjoin(prev_buffer, temp_buffer);	// Join the previous buffer with the current buffer.
 		free(prev_buffer);
 		prev_buffer = temp;
-		printf("prev_buffer: %s\n", prev_buffer);
+		// printf("Read %zd bytes: %s\n", bytes_read, temp_buffer);
 	}
 	free(temp_buffer);	// Free the temp buffer to avoid leaks.
 	return (prev_buffer);	// Return the updated buffer.
@@ -78,99 +78,99 @@ char	*set_line(char *prev_buffer)
 	return (ft_substr(prev_buffer, 0, i));
 }
 
-// Test the get_next_line function //
-#include <stdio.h>
-#include <fcntl.h>
+// // Test the get_next_line function //
+// #include <stdio.h>
+// #include <fcntl.h>
 
-void	test_get_next_line(const char *file_name, int loops)
-{
-	int		fd;
-	char	*line;
-	int		i = 0;
+// void	test_get_next_line(const char *file_name, int loops)
+// {
+// 	int		fd;
+// 	char	*line;
+// 	int		i = 0;
 
-	fd = open(file_name, O_RDONLY);
-	if (fd == -1)
-	{
-		perror("Error opening file");
-		return;
-	}
-	while (i < loops && (line = get_next_line(fd)) != NULL)
-	{
-		printf("%s", line);
-		free(line);
-		i++;
-	}
-	printf("\n--------------------------------------------------------------------\n\n");
-	close(fd);
-}
+// 	fd = open(file_name, O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		perror("Error opening file");
+// 		return;
+// 	}
+// 	while (i < loops && (line = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 		i++;
+// 	}
+// 	printf("\n--------------------------------------------------------------------\n\n");
+// 	close(fd);
+// }
 
-void	test_1_story(int loops)
-{
-	printf("File 1: This file contains a short story\n\n");
-	test_get_next_line("./text_files/story.txt", loops);
-}
+// void	test_1_story(int loops)
+// {
+// 	printf("File 1: This file contains a short story\n\n");
+// 	test_get_next_line("./text_files/story.txt", loops);
+// }
 
-void	test_2_empty(int loops)
-{
-	printf("File 2: This file is empty\n\n");
-	test_get_next_line("./text_files/empty.txt", loops);
-}
+// void	test_2_empty(int loops)
+// {
+// 	printf("File 2: This file is empty\n\n");
+// 	test_get_next_line("./text_files/empty.txt", loops);
+// }
 
-void	test_3_single_line(int loops)
-{
-	printf("File 3: This file contains a single line\n\n");
-	test_get_next_line("./text_files/single_line.txt", loops);
-}
+// void	test_3_single_line(int loops)
+// {
+// 	printf("File 3: This file contains a single line\n\n");
+// 	test_get_next_line("./text_files/single_line.txt", loops);
+// }
 
-void	test_4_multiple_lines(int loops)
-{
-	printf("File 4: This file contains multiple lines\n\n");
-	test_get_next_line("./text_files/multi_lines.txt", loops);
-}
+// void	test_4_multiple_lines(int loops)
+// {
+// 	printf("File 4: This file contains multiple lines\n\n");
+// 	test_get_next_line("./text_files/multi_lines.txt", loops);
+// }
 
-void	test_5_mixed_lines(int loops)
-{
-	printf("File 5: This file contains mixed lines\n\n");
-	test_get_next_line("./text_files/mixed_lines.txt", loops);
-}
+// void	test_5_mixed_lines(int loops)
+// {
+// 	printf("File 5: This file contains mixed lines\n\n");
+// 	test_get_next_line("./text_files/mixed_lines.txt", loops);
+// }
 
-void	test_6_short_lines(int loops)
-{
-	printf("File 6: This file contains short lines\n\n");
-	test_get_next_line("./text_files/short_lines.txt", loops);
-}
+// void	test_6_short_lines(int loops)
+// {
+// 	printf("File 6: This file contains short lines\n\n");
+// 	test_get_next_line("./text_files/short_lines.txt", loops);
+// }
 
-void	test_7_only_new_lines(int loops)
-{
-	printf("File 7: This file contains only new lines\n\n");
-	test_get_next_line("./text_files/only_newlines.txt", loops);
-}
+// void	test_7_only_new_lines(int loops)
+// {
+// 	printf("File 7: This file contains only new lines\n\n");
+// 	test_get_next_line("./text_files/only_newlines.txt", loops);
+// }
 
-int main(int argc, char **argv)
-{
-	int loops;
+// int main(int argc, char **argv)
+// {
+// 	int loops;
 
-	printf("Hello, BUFFER_SIZE is: %d\n", BUFFER_SIZE);
-	if (argc > 1)
-	{
-		loops = atoi(argv[1]);
-		if (loops <= 0)
-		{
-			fprintf(stderr, "Invalid number of loops: %s\n", argv[1]);
-			return 1;
-		}
-		test_1_story(loops);
-		// test_2_empty(loops);
-		// test_3_single_line(loops);
-		// test_4_multiple_lines(loops);
-		// test_5_mixed_lines(loops);
-		// test_6_short_lines(loops);
-		// test_7_only_new_lines(loops);
-	}
-	else
-	{
-		fprintf(stderr, "Usage: %s <number_of_loops>\n", argv[0]);
-		return 1;
-	}
-	return 0;
-}
+// 	printf("BUFFER_SIZE is: %d\n", BUFFER_SIZE);
+// 	if (argc > 1)
+// 	{
+// 		loops = atoi(argv[1]);
+// 		if (loops <= 0)
+// 		{
+// 			fprintf(stderr, "Invalid number of loops: %s\n", argv[1]);
+// 			return 1;
+// 		}
+// 		test_1_story(loops);
+// 		// test_2_empty(loops);
+// 		// test_3_single_line(loops);
+// 		// test_4_multiple_lines(loops);
+// 		// test_5_mixed_lines(loops);
+// 		// test_6_short_lines(loops);
+// 		// test_7_only_new_lines(loops);
+// 	}
+// 	else
+// 	{
+// 		fprintf(stderr, "Usage: %s <number_of_loops>\n", argv[0]);
+// 		return 1;
+// 	}
+// 	return 0;
+// }
