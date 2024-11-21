@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/21 10:52:55 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/21 12:35:28 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char	*fill_line_buffer(int fd, char *prev_buffer)
 	while (!ft_strchr(prev_buffer, '\n') && bytes_read != 0)
 	{
 		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);	// Read file and output # of bytes read.
-		// printf("bytes_read: %ld\n", bytes_read);
 		if (bytes_read == -1)	// Check read error
 			return (free(temp_buffer), free(prev_buffer), NULL);	// Free the buffer and previous buffer to avoid leaks.
 		temp_buffer[bytes_read] = '\0';
@@ -83,14 +82,15 @@ char	*set_line(char *prev_buffer)
 
 // Test the get_next_line function //
 #include <stdio.h>
+#include <fcntl.h>
 
-void	test_get_next_line(const char *file_path, int loops)
+void	test_get_next_line(const char *file_name, int loops)
 {
 	int		fd;
 	char	*line;
 	int		i = 0;
 
-	fd = open(file_path, O_RDONLY);
+	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Error opening file");
@@ -145,6 +145,7 @@ int main(int argc, char **argv)
 {
 	int loops;
 
+	printf("Hello, BUFFER_SIZE is: %d\n", BUFFER_SIZE);
 	if (argc > 1)
 	{
 		loops = atoi(argv[1]);

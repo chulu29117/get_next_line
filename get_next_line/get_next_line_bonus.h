@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 14:44:16 by clu               #+#    #+#             */
-/*   Updated: 2024/11/21 11:44:32 by clu              ###   ########.fr       */
+/*   Created: 2024/11/21 15:48:39 by clu               #+#    #+#             */
+/*   Updated: 2024/11/21 16:14:56 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-# include <unistd.h>	// read()
-# include <stdlib.h>	// malloc(), free()
+# include <unistd.h>
+# include <stdlib.h>
+# include <limits.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
 # endif
+
+# define MAX_FD 1024
 
 char	*get_next_line(int fd);
 char	*fill_line_buffer(int fd, char *prev);
