@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:48:49 by clu               #+#    #+#             */
-/*   Updated: 2024/11/22 14:32:10 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/22 15:25:19 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,12 @@ char	*set_line(char *prev_buffer)
 	if (prev_buffer == NULL)
 		return (NULL);
 	i = 0;
+	// Find the index of the newline character.
 	while (prev_buffer[i] && prev_buffer[i] != '\n')
 		i++;
 	if (prev_buffer[i] == '\n')
 		i++;
+	// Return the line up to the newline character.
 	return (ft_substr(prev_buffer, 0, i));
 }
 
