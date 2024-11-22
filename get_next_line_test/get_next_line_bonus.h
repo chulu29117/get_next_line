@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:48:39 by clu               #+#    #+#             */
-/*   Updated: 2024/11/21 16:14:56 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/22 14:32:32 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #  define BUFFER_SIZE 32
 # endif
 
-# define MAX_FD 1024
+# define MAX_FD 1024 
 
 char	*get_next_line(int fd);
 char	*fill_line_buffer(int fd, char *prev);

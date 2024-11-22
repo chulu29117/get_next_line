@@ -6,7 +6,7 @@
 #    By: clu <clu@student.hive.fi>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 17:38:52 by clu               #+#    #+#              #
-#    Updated: 2024/11/21 18:29:06 by clu              ###   ########.fr        #
+#    Updated: 2024/11/22 14:02:34 by clu              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ if [ $# -ge 1 ]; then
 fi
 
 # Compilation for mandatory part
-gcc -Wall -Wextra -g -D BUFFER_SIZE=5 -o test_gnl gnl_test.c get_next_line.c get_next_line_utils.c
+gcc -Wall -Wextra -g -D BUFFER_SIZE=50000 -o test_gnl gnl_test.c get_next_line.c get_next_line_utils.c
 
 # Check if compilation was successful
 if [ $? -ne 0 ]; then
@@ -30,7 +30,8 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run tests for mandatory part
-echo "Running tests for mandatory part with the assigned BUFFER_SIZE"
+echo "Running tests for mandatory part with the assigned BUFFER_SIZE and $LOOP_COUNT loops"
+echo ""
 
 # Test with various files
 ./test_gnl $LOOP_COUNT
@@ -41,7 +42,7 @@ echo "Running tests for mandatory part with the assigned BUFFER_SIZE"
 # echo "Done"
 
 # Compilation for bonus part
-gcc -Wall -Wextra -g -D BUFFER_SIZE=5 -o test_gnl_bonus gnl_test_bonus.c get_next_line_bonus.c get_next_line_utils_bonus.c
+gcc -Wall -Wextra -g -D BUFFER_SIZE=50000 -o test_gnl_bonus gnl_test_bonus.c get_next_line_bonus.c get_next_line_utils_bonus.c
 
 # Check if compilation was successful
 if [ $? -ne 0 ]; then
@@ -50,7 +51,8 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run tests for bonus part
-echo "Running tests for bonus part with the assigned BUFFER_SIZE"
+echo "Running tests for bonus part with the assigned BUFFER_SIZE and $LOOP_COUNT loops"
+echo ""
 
 # Test with various files
 ./test_gnl_bonus $LOOP_COUNT

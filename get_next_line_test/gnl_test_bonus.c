@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:40:43 by clu               #+#    #+#             */
-/*   Updated: 2024/11/22 13:47:19 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/22 13:54:36 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void test_multiple_fds(int loops)
 		return;
 	}
 	printf("Reading from multiple file descriptors:\n");
+	printf("BUFFER_SIZE is: %d\n\n", BUFFER_SIZE);
 	while (i < loops)
 	{
 		line1 = get_next_line(fd1);

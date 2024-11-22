@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:40:06 by clu               #+#    #+#             */
-/*   Updated: 2024/11/21 18:22:11 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/22 13:52:19 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int main(int argc, char **argv)
 {
 	int loops;
 
+	printf("Reading from a single file:\n");
 	printf("BUFFER_SIZE is: %d\n", BUFFER_SIZE);
 	printf("--------------------------------------------------------------------\n");
 

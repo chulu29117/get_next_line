@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/21 18:04:37 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/22 14:15:25 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 char	*get_next_line(int fd)
 {
 	static char	*line_buffer;	// Static variable to store the previous buffer between function calls.
-	char		*line;		// Variable to store the line extracted from the line buffer.
-	char		*temp;		// Temporary variable to store the updated line buffer.
+	char		*line;			// Variable to store the line extracted from the line buffer.
+	char		*temp;			// Temporary variable to store the updated line buffer.
 
 	// Check if the file descriptor is valid and the buffer size is greater than zero.
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -56,12 +56,12 @@ char	*fill_line_buffer(int fd, char *prev_buffer)
 		if (bytes_read == -1)	// Check read error
 			return (free(temp_buffer), free(prev_buffer), NULL);	// Free the buffer and previous buffer to avoid leaks.
 		temp_buffer[bytes_read] = '\0';
-		temp = ft_strjoin(prev_buffer, temp_buffer);	// Join the previous buffer with the current buffer.
+		temp = ft_strjoin(prev_buffer, temp_buffer);		// Join the previous buffer with the current buffer read.
 		free(prev_buffer);
 		prev_buffer = temp;
 		// printf("Read %zd bytes: %s\n", bytes_read, temp_buffer);
 	}
-	free(temp_buffer);	// Free the temp buffer to avoid leaks.
+	free(temp_buffer);		// Free the temp buffer to avoid leaks.
 	return (prev_buffer);	// Return the updated buffer.
 }
 char	*set_line(char *prev_buffer)
@@ -71,8 +71,10 @@ char	*set_line(char *prev_buffer)
 	if (prev_buffer == NULL)
 		return (NULL);
 	i = 0;
+	// Find the index of the newline character.
 	while (prev_buffer[i] && prev_buffer[i] != '\n')
 		i++;
+	// Return a substring of the line buffer up to the newline character.
 	if (prev_buffer[i] == '\n')
 		i++;
 	return (ft_substr(prev_buffer, 0, i));
