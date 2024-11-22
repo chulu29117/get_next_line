@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:40:43 by clu               #+#    #+#             */
-/*   Updated: 2024/11/21 18:14:08 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/22 13:47:19 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,29 @@ void	test_get_next_line(const char *file_name, int loops)
 	close(fd);
 }
 
-void	test_1_story(int loops)
-{
-	printf("File 1: This file contains a short story\n\n");
-	test_get_next_line("./text_files/story.txt", loops);
-}
+// void	test_1_story(int loops)
+// {
+// 	printf("File 1: This file contains a short story\n\n");
+// 	test_get_next_line("./text_files/story.txt", loops);
+// }
 
-void	test_2_single_line(int loops)
-{
-	printf("File 2: This file contains a single line\n\n");
-	test_get_next_line("./text_files/single_line.txt", loops);
-}
+// void	test_2_single_line(int loops)
+// {
+// 	printf("File 2: This file contains a single line\n\n");
+// 	test_get_next_line("./text_files/single_line.txt", loops);
+// }
 
-void	test_3_multiple_lines(int loops)
-{
-	printf("File 3: This file contains multiple lines\n\n");
-	test_get_next_line("./text_files/multi_lines.txt", loops);
-}
+// void	test_3_multiple_lines(int loops)
+// {
+// 	printf("File 3: This file contains multiple lines\n\n");
+// 	test_get_next_line("./text_files/multi_lines.txt", loops);
+// }
 
-void	test_4_mixed_lines(int loops)
-{
-	printf("File 4: This file contains mixed short and long lines\n\n");
-	test_get_next_line("./text_files/mixed_lines.txt", loops);
-}
+// void	test_4_mixed_lines(int loops)
+// {
+// 	printf("File 4: This file contains mixed short and long lines\n\n");
+// 	test_get_next_line("./text_files/mixed_lines.txt", loops);
+// }
 
 void test_multiple_fds(int loops)
 {
@@ -82,23 +82,21 @@ void test_multiple_fds(int loops)
 		if (fd2 != -1) close(fd2);
 		return;
 	}
-
 	printf("Reading from multiple file descriptors:\n");
-
 	while (i < loops)
 	{
 		line1 = get_next_line(fd1);
 		line2 = get_next_line(fd2);
 		if (line1)
 		{
-			printf("fd1: %s\n", line1);
+			printf("fd1: %s", line1);
 			free(line1);
 		}
 		else
 			printf("fd1: NULL\n");
 		if (line2)
 		{
-			printf("fd2: %s\n", line2);
+			printf("fd2: %s", line2);
 			free(line2);
 		}
 		else
@@ -122,8 +120,6 @@ int main(int argc, char **argv)
 			return 1;
 		}
 	}
-
 	test_multiple_fds(loops);
-
 	return 0;
 }
