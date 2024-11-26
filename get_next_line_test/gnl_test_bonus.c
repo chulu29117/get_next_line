@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:40:43 by clu               #+#    #+#             */
-/*   Updated: 2024/11/22 15:33:31 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/26 10:28:16 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,6 @@ void	test_get_next_line(const char *file_name, int loops)
 
 	close(fd);
 }
-
-// void	test_1_story(int loops)
-// {
-// 	printf("File 1: This file contains a short story\n\n");
-// 	test_get_next_line("./text_files/story.txt", loops);
-// }
-
-// void	test_2_single_line(int loops)
-// {
-// 	printf("File 2: This file contains a single line\n\n");
-// 	test_get_next_line("./text_files/single_line.txt", loops);
-// }
-
-// void	test_3_multiple_lines(int loops)
-// {
-// 	printf("File 3: This file contains multiple lines\n\n");
-// 	test_get_next_line("./text_files/multi_lines.txt", loops);
-// }
-
-// void	test_4_mixed_lines(int loops)
-// {
-// 	printf("File 4: This file contains mixed short and long lines\n\n");
-// 	test_get_next_line("./text_files/mixed_lines.txt", loops);
-// }
 
 void test_multiple_fds(int loops)
 {
