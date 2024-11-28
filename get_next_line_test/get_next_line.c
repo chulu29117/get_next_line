@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/28 11:53:51 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/28 11:55:52 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*fill_line_buffer(int fd, char *prev_buffer)
 		temp = ft_strjoin(prev_buffer, temp_buffer);		// Join the previous buffer with the current buffer read.
 		free(prev_buffer);
 		prev_buffer = temp;
-		printf("Read %zd bytes: %s\n", bytes_read, temp_buffer);
+		// printf("Read %zd bytes: %s\n", bytes_read, temp_buffer);
 	}
 	free(temp_buffer);		// Free the temp buffer to avoid leaks.
 	return (prev_buffer);	// Return the updated buffer.
