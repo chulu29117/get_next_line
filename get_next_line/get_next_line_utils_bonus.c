@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:48:58 by clu               #+#    #+#             */
-/*   Updated: 2024/11/21 15:59:05 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/28 13:28:54 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
+	if (str == NULL)
+		return (0);
 	i = 0;
 	while (str[i] != '\0')
 		i++;
@@ -27,6 +29,8 @@ char	*ft_strchr(const char *s, int c)
 	int				i;
 	unsigned char	uc;
 
+	if (s == NULL)
+		return (NULL);
 	uc = (unsigned char)c;
 	i = 0;
 	while (s[i] != '\0')
@@ -46,6 +50,8 @@ char	*ft_strdup(const char *s1)
 	size_t		len;
 	size_t		i;
 
+	if (s1 == NULL)
+		return (NULL);
 	len = ft_strlen(s1) + 1;
 	ptr = (char *)malloc(len * sizeof(char));
 	if (ptr == NULL)
