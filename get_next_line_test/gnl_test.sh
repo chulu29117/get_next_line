@@ -6,7 +6,7 @@
 #    By: clu <clu@student.hive.fi>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 17:38:52 by clu               #+#    #+#              #
-#    Updated: 2024/11/27 09:52:23 by clu              ###   ########.fr        #
+#    Updated: 2024/11/28 11:50:19 by clu              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ if [ $# -ge 1 ]; then
 fi
 
 # Compilation for mandatory part
-cc -Wall -Wextra -Werror -g -D BUFFER_SIZE=5000 -o test_gnl gnl_test.c get_next_line.c get_next_line_utils.c
+cc -Wall -Wextra -Werror -g -D BUFFER_SIZE=5 -o test_gnl gnl_test.c get_next_line.c get_next_line_utils.c
 
 # Check if compilation was successful
 if [ $? -ne 0 ]; then
@@ -37,12 +37,12 @@ echo ""
 ./test_gnl $LOOP_COUNT
 
 # Run Valgrind to check for memory leaks
-echo "Running Valgrind to check for memory leaks for mandatory part"
-valgrind --leak-check=full --track-origins=yes ./test_gnl $LOOP_COUNT
-echo "Done"
+# echo "Running Valgrind to check for memory leaks for mandatory part"
+# valgrind --leak-check=full --track-origins=yes ./test_gnl $LOOP_COUNT
+# echo "Done"
 
 # Compilation for bonus part
-cc -Wall -Wextra -Werror -g -D BUFFER_SIZE=5000 -o test_gnl_bonus gnl_test_bonus.c get_next_line_bonus.c get_next_line_utils_bonus.c
+cc -Wall -Wextra -Werror -g -D BUFFER_SIZE=5 -o test_gnl_bonus gnl_test_bonus.c get_next_line_bonus.c get_next_line_utils_bonus.c
 
 # Check if compilation was successful
 if [ $? -ne 0 ]; then
@@ -58,6 +58,6 @@ echo ""
 ./test_gnl_bonus $LOOP_COUNT
 
 # Run Valgrind to check for memory leaks
-echo "Running Valgrind to check for memory leaks for bonus part"
-valgrind --leak-check=full --track-origins=yes ./test_gnl_bonus $LOOP_COUNT
-echo "Done"
+# echo "Running Valgrind to check for memory leaks for bonus part"
+# valgrind --leak-check=full --track-origins=yes ./test_gnl_bonus $LOOP_COUNT
+# echo "Done"

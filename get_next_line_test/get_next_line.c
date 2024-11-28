@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/22 14:15:25 by clu              ###   ########.fr       */
+/*   Updated: 2024/11/28 11:53:51 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ char	*fill_line_buffer(int fd, char *prev_buffer)
 		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);	// Read file and output # of bytes read.
 		if (bytes_read == -1)	// Check read error
 			return (free(temp_buffer), free(prev_buffer), NULL);	// Free the buffer and previous buffer to avoid leaks.
-		temp_buffer[bytes_read] = '\0';
+		temp_buffer[bytes_read] = '\0';						// Null-terminate the buffer.
 		temp = ft_strjoin(prev_buffer, temp_buffer);		// Join the previous buffer with the current buffer read.
 		free(prev_buffer);
 		prev_buffer = temp;
-		// printf("Read %zd bytes: %s\n", bytes_read, temp_buffer);
+		printf("Read %zd bytes: %s\n", bytes_read, temp_buffer);
 	}
 	free(temp_buffer);		// Free the temp buffer to avoid leaks.
 	return (prev_buffer);	// Return the updated buffer.
