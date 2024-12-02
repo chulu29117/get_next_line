@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:48:49 by clu               #+#    #+#             */
-/*   Updated: 2024/12/02 11:31:48 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/02 12:25:25 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,35 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line_buffer[fd] = fill_line_buffer(fd, line_buffer[fd]);
 	if (line_buffer[fd] == NULL || line_buffer[fd][0] == '\0')
-		return (free(line_buffer[fd]), line_buffer[fd] = NULL);
+		return (free(line_buffer[fd]), line_buffer[fd] = NULL, NULL);
 	line = set_line(line_buffer[fd]);
+	if (line == NULL)
+		return (free(line_buffer[fd]), line_buffer[fd] = NULL, NULL);
 	temp = ft_strdup(line_buffer[fd] + ft_strlen(line));
+	if (temp == NULL)
+		return (free(line_buffer[fd]), line_buffer[fd] = NULL, NULL);
 	free(line_buffer[fd]);
 	line_buffer[fd] = temp;
 	return (line);
+}
+
+static char	*allocate_buffer(char **prev_buffer)
+{
+	char	*temp_buffer;
+
+	temp_buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (temp_buffer == NULL)
+		return (NULL);
+	if (*prev_buffer == NULL)
+	{
+		*prev_buffer = ft_strdup("");
+		if (*prev_buffer == NULL)
+		{
+			free(temp_buffer);
+			return (NULL);
+		}
+	}
+	return (temp_buffer);
 }
 
 char	*fill_line_buffer(int fd, char *prev_buffer)
@@ -36,11 +59,9 @@ char	*fill_line_buffer(int fd, char *prev_buffer)
 	char	*temp;
 	ssize_t	bytes_read;
 
-	temp_buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	temp_buffer = allocate_buffer(&prev_buffer);
 	if (temp_buffer == NULL)
 		return (NULL);
-	if (prev_buffer == NULL)
-		prev_buffer = ft_strdup("");
 	bytes_read = 1;
 	while (!ft_strchr(prev_buffer, '\n') && bytes_read != 0)
 	{

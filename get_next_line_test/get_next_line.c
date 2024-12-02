@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/12/02 11:20:12 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/02 12:27:20 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,42 +29,60 @@ char	*get_next_line(int fd)
 		return (free(line_buffer), line_buffer = NULL, NULL);
 	// Extract the line from the line buffer.
 	line = set_line(line_buffer);
+	if (line == NULL)	// Check if the line was successfully extracted.
+		return (free(line_buffer), line_buffer = NULL, NULL);
 	// Update the line buffer with the remaining data.
 	temp = ft_strdup(line_buffer + ft_strlen(line));
+	if (temp == NULL)	// Check if the update was successful.
+		return (free(line_buffer), line_buffer = NULL, NULL);
 	free(line_buffer);
 	line_buffer = temp;
 	return (line);
 }
 
-char	*fill_line_buffer(int fd, char *prev_buffer)
+static char	*allocate_buffer(char **prev_buffer)
 {
-	char 	*temp_buffer;
-	char 	*temp;
-	ssize_t	bytes_read;
+	char	*temp_buffer;
 
-	// Allocate memory for a buffer to read data from the file descriptor.
 	temp_buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (temp_buffer == NULL)
 		return (NULL);
-	if (prev_buffer == NULL)			// Check if the previous buffer is empty.
-		prev_buffer = ft_strdup("");	// Initialize the buffer with an empty string.
+	if (*prev_buffer == NULL)
+	{
+		*prev_buffer = ft_strdup("");
+		if (*prev_buffer == NULL)
+		{
+			free(temp_buffer);
+			return (NULL);
+		}
+	}
+	return (temp_buffer);
+}
+
+char	*fill_line_buffer(int fd, char *prev_buffer)
+{
+	char	*temp_buffer;
+	char	*temp;
+	ssize_t	bytes_read;
+
+	temp_buffer = allocate_buffer(&prev_buffer);
+	if (temp_buffer == NULL)
+		return (NULL);
 	bytes_read = 1;
-	// Read data from the file descriptor until a newline character is found.
 	while (!ft_strchr(prev_buffer, '\n') && bytes_read != 0)
 	{
-		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);	// Read file and output # of bytes read.
-		if (bytes_read == -1)	// Check read error
-			return (free(temp_buffer), free(prev_buffer), NULL);	// Free the buffer and previous buffer to avoid leaks.
-		temp_buffer[bytes_read] = '\0';						// Null-terminate the buffer.
-		temp = ft_strjoin(prev_buffer, temp_buffer);		// Join the previous buffer with the current buffer read.
-		if (temp == NULL)	// Check if the join was successful.
-			return (free(temp_buffer), free(prev_buffer), NULL);	// Free the buffer and previous buffer to avoid leaks.
+		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);
+		if (bytes_read == -1)
+			return (free(temp_buffer), free(prev_buffer), NULL);
+		temp_buffer[bytes_read] = '\0';
+		temp = ft_strjoin(prev_buffer, temp_buffer);
+		if (temp == NULL)
+			return (free(temp_buffer), free(prev_buffer), NULL);
 		free(prev_buffer);
 		prev_buffer = temp;
-		// printf("Read %zd bytes: %s\n", bytes_read, temp_buffer);
 	}
-	free(temp_buffer);		// Free the temp buffer to avoid leaks.
-	return (prev_buffer);	// Return the updated buffer.
+	free(temp_buffer);
+	return (prev_buffer);
 }
 char	*set_line(char *prev_buffer)
 {
