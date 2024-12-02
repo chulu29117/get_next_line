@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:40:43 by clu               #+#    #+#             */
-/*   Updated: 2024/11/26 10:28:16 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/02 15:56:27 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,13 @@ void test_multiple_fds(int loops)
 	int		fd2;
 	char	*line1;
 	char	*line2;
-
-	int i = 0;
+	int 	i = 0;
+	
 	fd1 = open("./text_files/story.txt", O_RDONLY);
 	fd2 = open("./text_files/multi_lines.txt", O_RDONLY);
 	if (fd1 == -1 || fd2 == -1)
 	{
 		perror("Error opening files");
-		if (fd1 != -1) close(fd1);
-		if (fd2 != -1) close(fd2);
 		return;
 	}
 	printf("Reading from multiple file descriptors:\n");

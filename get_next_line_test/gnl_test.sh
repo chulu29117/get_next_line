@@ -6,7 +6,7 @@
 #    By: clu <clu@student.hive.fi>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 17:38:52 by clu               #+#    #+#              #
-#    Updated: 2024/11/28 11:50:19 by clu              ###   ########.fr        #
+#    Updated: 2024/12/02 17:32:01 by clu              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,9 @@ echo ""
 ./test_gnl $LOOP_COUNT
 
 # Run Valgrind to check for memory leaks
-# echo "Running Valgrind to check for memory leaks for mandatory part"
-# valgrind --leak-check=full --track-origins=yes ./test_gnl $LOOP_COUNT
-# echo "Done"
+echo "Running Valgrind to check for memory leaks for mandatory part"
+valgrind --leak-check=full --show-leak-kinds=all -s ./test_gnl $LOOP_COUNT
+echo "Done"
 
 # Compilation for bonus part
 cc -Wall -Wextra -Werror -g -D BUFFER_SIZE=5 -o test_gnl_bonus gnl_test_bonus.c get_next_line_bonus.c get_next_line_utils_bonus.c
@@ -59,5 +59,5 @@ echo ""
 
 # Run Valgrind to check for memory leaks
 # echo "Running Valgrind to check for memory leaks for bonus part"
-# valgrind --leak-check=full --track-origins=yes ./test_gnl_bonus $LOOP_COUNT
+# valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all -s ./test_gnl_bonus $LOOP_COUNT
 # echo "Done"
