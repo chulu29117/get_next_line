@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:40:06 by clu               #+#    #+#             */
-/*   Updated: 2024/12/02 12:28:09 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/02 12:36:57 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int main(int argc, char **argv)
 		// test_3_single_line(loops);
 		// test_4_multiple_lines(loops);
 		// test_5_mixed_lines(loops);
-		test_6_short_lines(loops);
+		// test_6_short_lines(loops);
 		// test_7_only_new_lines(loops);
 	}
 	else

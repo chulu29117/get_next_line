@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/12/02 12:27:20 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/02 12:32:33 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,14 @@ static char	*allocate_buffer(char **prev_buffer)
 {
 	char	*temp_buffer;
 
+	// Allocate a temporary buffer to store the data read from the file descriptor.
 	temp_buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (temp_buffer == NULL)
 		return (NULL);
 	if (*prev_buffer == NULL)
 	{
-		*prev_buffer = ft_strdup("");
-		if (*prev_buffer == NULL)
+		*prev_buffer = ft_strdup("");	// Initialize the buffer with an empty string.
+		if (*prev_buffer == NULL)		// Check if the buffer was successfully allocated.
 		{
 			free(temp_buffer);
 			return (NULL);
@@ -65,17 +66,19 @@ char	*fill_line_buffer(int fd, char *prev_buffer)
 	char	*temp;
 	ssize_t	bytes_read;
 
+	// Allocate a temporary buffer to store the data read from the file descriptor.
 	temp_buffer = allocate_buffer(&prev_buffer);
 	if (temp_buffer == NULL)
 		return (NULL);
 	bytes_read = 1;
+	// Read data from the file descriptor until a newline character is found or the end of file is reached.
 	while (!ft_strchr(prev_buffer, '\n') && bytes_read != 0)
 	{
-		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);
+		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);	// Read data from the file descriptor.
 		if (bytes_read == -1)
 			return (free(temp_buffer), free(prev_buffer), NULL);
 		temp_buffer[bytes_read] = '\0';
-		temp = ft_strjoin(prev_buffer, temp_buffer);
+		temp = ft_strjoin(prev_buffer, temp_buffer);		// Join the previous buffer with the temporary buffer.
 		if (temp == NULL)
 			return (free(temp_buffer), free(prev_buffer), NULL);
 		free(prev_buffer);
