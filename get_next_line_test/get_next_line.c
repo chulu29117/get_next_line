@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/11/28 11:55:52 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/02 11:20:12 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char	*fill_line_buffer(int fd, char *prev_buffer)
 			return (free(temp_buffer), free(prev_buffer), NULL);	// Free the buffer and previous buffer to avoid leaks.
 		temp_buffer[bytes_read] = '\0';						// Null-terminate the buffer.
 		temp = ft_strjoin(prev_buffer, temp_buffer);		// Join the previous buffer with the current buffer read.
+		if (temp == NULL)	// Check if the join was successful.
+			return (free(temp_buffer), free(prev_buffer), NULL);	// Free the buffer and previous buffer to avoid leaks.
 		free(prev_buffer);
 		prev_buffer = temp;
 		// printf("Read %zd bytes: %s\n", bytes_read, temp_buffer);
@@ -66,7 +68,8 @@ char	*fill_line_buffer(int fd, char *prev_buffer)
 }
 char	*set_line(char *prev_buffer)
 {
-	int	i;
+	int		i;
+	char	*line;
 
 	if (prev_buffer == NULL)
 		return (NULL);
@@ -74,10 +77,12 @@ char	*set_line(char *prev_buffer)
 	// Find the index of the newline character.
 	while (prev_buffer[i] && prev_buffer[i] != '\n')
 		i++;
-	// Return a substring of the line buffer up to the newline character.
 	if (prev_buffer[i] == '\n')
 		i++;
-	return (ft_substr(prev_buffer, 0, i));
+	line = ft_substr(prev_buffer, 0, i); // Extract the line from the buffer.
+	if (line == NULL) // Check if the line was successfully extracted.
+		return (NULL);
+	return (line);
 }
 
 // // Test the get_next_line function //

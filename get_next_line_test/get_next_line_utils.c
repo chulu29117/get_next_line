@@ -6,16 +6,18 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:44:05 by clu               #+#    #+#             */
-/*   Updated: 2024/11/28 13:22:50 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/02 11:27:20 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
+	if (str == NULL)
+		return (0);
 	i = 0;
 	while (str[i] != '\0')
 		i++;
@@ -27,6 +29,8 @@ char	*ft_strchr(const char *s, int c)
 	int				i;
 	unsigned char	uc;
 
+	if (s == NULL)
+		return (NULL);
 	uc = (unsigned char)c;
 	i = 0;
 	while (s[i] != '\0')
@@ -37,7 +41,7 @@ char	*ft_strchr(const char *s, int c)
 	}
 	if (uc == '\0')
 		return ((char *)&s[i]);
-	return (0);
+	return (NULL);
 }
 
 char	*ft_strdup(const char *s1)
@@ -46,16 +50,19 @@ char	*ft_strdup(const char *s1)
 	size_t		len;
 	size_t		i;
 
+	if (s1 == NULL)
+		return (NULL);
 	len = ft_strlen(s1) + 1;
 	ptr = (char *)malloc(len * sizeof(char));
 	if (ptr == NULL)
 		return (NULL);
 	i = 0;
-	while (i < len)
+	while (i < len - 1)
 	{
 		ptr[i] = s1[i];
 		i++;
 	}
+	ptr[i] = '\0';
 	return (ptr);
 }
 

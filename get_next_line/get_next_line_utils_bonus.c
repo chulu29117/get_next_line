@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:48:58 by clu               #+#    #+#             */
-/*   Updated: 2024/12/02 10:49:57 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/02 11:27:06 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_strdup(const char *s1)
 	if (ptr == NULL)
 		return (NULL);
 	i = 0;
-	while (i < len)
+	while (i < len - 1)
 	{
 		ptr[i] = s1[i];
 		i++;

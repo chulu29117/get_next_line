@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:39:02 by clu               #+#    #+#             */
-/*   Updated: 2024/12/02 11:10:18 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/02 11:19:40 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*fill_line_buffer(int fd, char *prev_buffer)
 char	*set_line(char *prev_buffer)
 {
 	int		i;
-	char 	*line;
+	char	*line;
 
 	if (prev_buffer == NULL)
 		return (NULL);
