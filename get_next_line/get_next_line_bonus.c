@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:48:49 by clu               #+#    #+#             */
-/*   Updated: 2024/11/21 17:31:32 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/02 11:12:36 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line_buffer[fd] = fill_line_buffer(fd, line_buffer[fd]);
 	if (line_buffer[fd] == NULL || line_buffer[fd][0] == '\0')
-		return (free(line_buffer[fd]), line_buffer[fd] = NULL, NULL);
+		return (free(line_buffer[fd]), line_buffer[fd] = NULL);
 	line = set_line(line_buffer[fd]);
 	temp = ft_strdup(line_buffer[fd] + ft_strlen(line));
 	free(line_buffer[fd]);
@@ -49,6 +49,8 @@ char	*fill_line_buffer(int fd, char *prev_buffer)
 			return (free(temp_buffer), free(prev_buffer), NULL);
 		temp_buffer[bytes_read] = '\0';
 		temp = ft_strjoin(prev_buffer, temp_buffer);
+		if (temp == NULL)
+			return (free(temp_buffer), free(prev_buffer), NULL);
 		free(prev_buffer);
 		prev_buffer = temp;
 	}
@@ -58,7 +60,8 @@ char	*fill_line_buffer(int fd, char *prev_buffer)
 
 char	*set_line(char *prev_buffer)
 {
-	int	i;
+	int		i;
+	char 	*line;
 
 	if (prev_buffer == NULL)
 		return (NULL);
@@ -67,5 +70,8 @@ char	*set_line(char *prev_buffer)
 		i++;
 	if (prev_buffer[i] == '\n')
 		i++;
-	return (ft_substr(prev_buffer, 0, i));
+	line = ft_substr(prev_buffer, 0, i);
+	if (line == NULL)
+		return (NULL);
+	return (line);
 }

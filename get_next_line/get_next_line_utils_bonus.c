@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:48:58 by clu               #+#    #+#             */
-/*   Updated: 2024/11/28 13:28:54 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/02 10:49:57 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_strchr(const char *s, int c)
 	}
 	if (uc == '\0')
 		return ((char *)&s[i]);
-	return (0);
+	return (NULL);
 }
 
 char	*ft_strdup(const char *s1)
@@ -62,6 +62,7 @@ char	*ft_strdup(const char *s1)
 		ptr[i] = s1[i];
 		i++;
 	}
+	ptr[i] = '\0';
 	return (ptr);
 }
 
