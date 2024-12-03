@@ -6,7 +6,7 @@
 #    By: clu <clu@student.hive.fi>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 17:38:52 by clu               #+#    #+#              #
-#    Updated: 2024/12/02 17:32:01 by clu              ###   ########.fr        #
+#    Updated: 2024/12/03 17:26:54 by clu              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,20 @@
 # Default loop count
 LOOP_COUNT=10
 
-# Check if a loop count is provided as an argument
-if [ $# -ge 1 ]; then
-	LOOP_COUNT=$1
+# Check if the number of arguments is correct
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <number_of_loops>"
+    exit 1
 fi
+
+# Check if the provided argument is a valid number
+if ! [[ $1 =~ ^[0-9]+$ ]]; then
+    echo "Invalid number of loops: $1"
+    exit 1
+fi
+
+# Set the loop count to the provided argument
+LOOP_COUNT=$1
 
 # Compilation for mandatory part
 cc -Wall -Wextra -Werror -g -D BUFFER_SIZE=5 -o test_gnl gnl_test.c get_next_line.c get_next_line_utils.c
@@ -58,6 +68,6 @@ echo ""
 ./test_gnl_bonus $LOOP_COUNT
 
 # Run Valgrind to check for memory leaks
-# echo "Running Valgrind to check for memory leaks for bonus part"
-# valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all -s ./test_gnl_bonus $LOOP_COUNT
-# echo "Done"
+echo "Running Valgrind to check for memory leaks for bonus part"
+valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all -s ./test_gnl_bonus $LOOP_COUNT
+echo "Done"
