@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:40:06 by clu               #+#    #+#             */
-/*   Updated: 2024/12/05 12:09:30 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/09 10:42:41 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	test_get_next_line(const char *file_name, int loops)
 
 void	test_1_story(int loops)
 {
-	printf("File 1: This file contains a short story\n\n");
+	printf("File 1: This file contains a short story about 0\n\n");
 	test_get_next_line("./text_files/story.txt", loops);
 }
 
