@@ -6,7 +6,7 @@
 #    By: clu <clu@student.hive.fi>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 17:38:52 by clu               #+#    #+#              #
-#    Updated: 2024/12/16 15:04:13 by clu              ###   ########.fr        #
+#    Updated: 2024/12/16 15:06:20 by clu              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ fi
 LOOP_COUNT=$1
 
 # Compilation for mandatory part
-cc -Wall -Wextra -Werror -g -D BUFFER_SIZE=5000 -o test_gnl gnl_test.c get_next_line.c get_next_line_utils.c
+cc -Wall -Wextra -Werror -g -D BUFFER_SIZE=5 -o test_gnl gnl_test.c get_next_line.c get_next_line_utils.c
 
 # Check if compilation was successful
 if [ $? -ne 0 ]; then
@@ -52,7 +52,7 @@ echo ""
 # echo "Done"
 
 # Compilation for bonus part
-cc -Wall -Wextra -Werror -g -D BUFFER_SIZE=5 -o test_gnl_bonus gnl_test_bonus.c get_next_line_bonus.c get_next_line_utils_bonus.c
+cc -Wall -Wextra -Werror -g -D BUFFER_SIZE=10 -o test_gnl_bonus gnl_test_bonus.c get_next_line_bonus.c get_next_line_utils_bonus.c
 
 # Check if compilation was successful
 if [ $? -ne 0 ]; then

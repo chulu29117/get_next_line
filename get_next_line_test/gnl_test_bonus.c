@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:40:43 by clu               #+#    #+#             */
-/*   Updated: 2024/12/03 17:19:53 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/05 12:07:24 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,43 @@ void test_multiple_fds(int loops)
 	}
 	printf("Reading from multiple file descriptors:\n");
 	// printf("BUFFER_SIZE is: %d\n\n", BUFFER_SIZE);
-	while (i < loops && ((line1 = get_next_line(fd1)) != NULL || (line2 = get_next_line(fd2)) != NULL))
-	{
-		if (line1)
-		{
-			printf("fd1: %s\n", line1);
-			free(line1);
-		}
-		else
-			printf("fd1: NULL\n\n");
-		if (line2)
-		{
-			printf("fd2: %s\n", line2);
-			free(line2);
-		}
-		else
-			printf("fd2: NULL\n\n");
-		i++;
-	}
+    while (i < loops)
+    {
+        line1 = get_next_line(fd1);
+        line2 = get_next_line(fd2);
+        if (line1 == NULL && line2 == NULL)
+            break;
+        if (line1)
+        {
+            printf("fd1: %s\n", line1);
+            free(line1);
+            line1 = NULL;
+        }
+        else
+            printf("fd1: NULL\n\n");
+        if (line2)
+        {
+            printf("fd2: %s\n", line2);
+            free(line2);
+            line2 = NULL;
+        }
+        else
+            printf("fd2: NULL\n\n");
+        i++;
+    }
 	while ((line1 = get_next_line(fd1)) != NULL || (line2 = get_next_line(fd2)) != NULL)
-	{
-		if (line1)
-			free(line1);
-		if (line2)
-			free(line2);
-	}
+    {
+        if (line1)
+        {
+            free(line1);
+            line1 = NULL;
+        }
+        if (line2)
+        {
+            free(line2);
+            line2 = NULL;
+        }
+    }
 	close(fd1);
 	close(fd2);
 }
