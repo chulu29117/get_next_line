@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:40:06 by clu               #+#    #+#             */
-/*   Updated: 2024/12/09 10:42:41 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/17 14:09:21 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	test_get_next_line(const char *file_name, int loops)
 	int		fd;
 	char	*line;
 	int		i = 0;
-
+	int 	count = 1;
+	
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 	{
@@ -37,7 +38,8 @@ void	test_get_next_line(const char *file_name, int loops)
 			break;
 		if (line)
 		{
-			printf("%s", line);
+			printf("[%d] %s", count, line);
+			count++;
 			free (line);
 			line = NULL;
 		}

@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:48:39 by clu               #+#    #+#             */
-/*   Updated: 2024/11/21 16:14:56 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/17 14:07:08 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 # define MAX_FD 1024
 
 char	*get_next_line(int fd);
-char	*fill_line_buffer(int fd, char *prev);
-char	*set_line(char *line_buffer);
 
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);

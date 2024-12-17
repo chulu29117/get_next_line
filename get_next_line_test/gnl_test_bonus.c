@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:40:43 by clu               #+#    #+#             */
-/*   Updated: 2024/12/05 12:07:24 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/17 14:09:02 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void test_multiple_fds(int loops)
 	char	*line1 = NULL;
 	char	*line2 = NULL;
 	int 	i = 0;
+	int 	count1 = 1;
+	int 	count2 = 1;
 	
 	fd1 = open("./text_files/story.txt", O_RDONLY);
 	fd2 = open("./text_files/multi_lines.txt", O_RDONLY);
@@ -42,7 +44,8 @@ void test_multiple_fds(int loops)
             break;
         if (line1)
         {
-            printf("fd1: %s\n", line1);
+            printf("fd1: [%d] %s\n", count1, line1);
+			count1++;
             free(line1);
             line1 = NULL;
         }
@@ -50,7 +53,8 @@ void test_multiple_fds(int loops)
             printf("fd1: NULL\n\n");
         if (line2)
         {
-            printf("fd2: %s\n", line2);
+            printf("fd2: [%d] %s\n", count2, line2);
+			count2++;
             free(line2);
             line2 = NULL;
         }

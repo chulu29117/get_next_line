@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:44:16 by clu               #+#    #+#             */
-/*   Updated: 2024/12/02 17:40:08 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/17 14:07:43 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*fill_line_buffer(int fd, char *prev);
-char	*set_line(char *line_buffer);
 
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);

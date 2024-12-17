@@ -6,11 +6,11 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:44:05 by clu               #+#    #+#             */
-/*   Updated: 2024/12/02 11:27:20 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/17 13:42:18 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 size_t	ft_strlen(const char *str)
 {
