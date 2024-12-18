@@ -6,7 +6,7 @@
 /*   By: clu <clu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:40:43 by clu               #+#    #+#             */
-/*   Updated: 2024/12/17 14:09:02 by clu              ###   ########.fr       */
+/*   Updated: 2024/12/18 13:33:56 by clu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void test_multiple_fds(int loops)
 {
@@ -26,7 +26,7 @@ void test_multiple_fds(int loops)
 	int 	i = 0;
 	int 	count1 = 1;
 	int 	count2 = 1;
-	
+
 	fd1 = open("./text_files/story.txt", O_RDONLY);
 	fd2 = open("./text_files/multi_lines.txt", O_RDONLY);
 	if (fd1 == -1 || fd2 == -1)
